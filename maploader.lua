@@ -1,9 +1,9 @@
+local map = { }
+local map_mt = { __index = map }
+
 local json = require( "json" )
 local physics = require( "physics" )
 require( "imageinfo" )
-
-local map = { }
-local map_mt = { __index = map }
 
 function map.new( jsonstring )
 	local _newMap = json.decode( jsonstring )
@@ -62,6 +62,14 @@ function map:init( view )
 	return player
 end
 
+function map:getFinishGroupXY( )
+	local t = {}
+	for i = 1, #self.finishgroup do
+		table.insert( t, { x = self.group[self.finishgroup[i]].x, y = self.group[self.finishgroup[i]].y })
+	end
+	return t
+end
+
 function map:destroingFinishGroup( )
 	for i = 1, #self.finishgroup do
 		self.group[self.finishgroup[i]].isVisible = false
@@ -69,6 +77,10 @@ function map:destroingFinishGroup( )
 		self.group[self.finishgroup[i]].tag = "finish"
 	end
 	table.remove( self.finishgroup )
+end
+
+function map:removeSelf( )
+
 end
 
 return map

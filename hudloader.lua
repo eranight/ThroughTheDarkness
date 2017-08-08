@@ -20,12 +20,12 @@ function hud:init( view )
 	
 	local heartImage = display.newImageRect( imagebytype.heart.filename, self.ceilsize, self.ceilsize )
 	heartImage.x, heartImage.y = self.ceilsize, self.ceilsize * 0.5
-	self.textAboutHeart = display.newText( tostring( self.heartsCounter ), self.ceilsize * 2, self.ceilsize * 0.5, native.systemFont, self.ceilsize * 0.9 )
+	self.textAboutHeart = display.newText( tostring( self.heartsCounter ), self.ceilsize * 2, self.ceilsize * 0.5, "font.ttf", self.ceilsize * 0.9 )
 	self.textAboutHeart:setFillColor( 0 )
 	
 	local starImage = display.newImageRect( imagebytype.star.filename, self.ceilsize, self.ceilsize )
 	starImage.y = self.ceilsize * 0.5
-	self.textAboutStars = display.newText( "00/00", 0, self.ceilsize * 0.5, native.systemFont, self.ceilsize * 0.9 )
+	self.textAboutStars = display.newText( "00/00", 0, self.ceilsize * 0.5, "font.ttf", self.ceilsize * 0.9 )
 	self.textAboutStars.x = display.actualContentWidth - self.textAboutStars.width * 0.5
 	starImage.x = self.textAboutStars.x - ( self.textAboutStars.width * 0.5 + self.ceilsize * 0.5 )
 	self.textAboutStars.text = "0/" .. tostring( self.maxStars )
@@ -62,6 +62,11 @@ end
 function hud:hit( )
 	self.heartsCounter = self.heartsCounter - 1
 	self.textAboutHeart.text = tostring( self.heartsCounter )
+end
+
+function hud:removeSelf( )
+	self.textAboutHeart:removeSelf( )
+	self.textAboutStars:removeSelf( )
 end
 
 return hud
